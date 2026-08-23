@@ -1,111 +1,84 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --bg: #eef3f9;
+  --surface: #ffffff;
+  --surface-alt: #f4f8fc;
+  --ink: #142433;
+  --ink-muted: #52697d;
+  --ink-faint: #8299ac;
+  --primary: #08428c;
+  --primary-dark: #052b5c;
+  --primary-light: #1f6fd6;
+  --accent: #ff7a00;
+  --accent-ink: #291200;
+  --accent-dark: #c85e00;
+  --success: #1c8a4b;
+  --success-bg: #e4f5ea;
+  --danger: #b3261e;
+  --danger-bg: #fbe9e7;
+  --border: #d7e2ee;
+  --border-soft: #e6edf5;
+  --chip-blue-bg: #e5eefa;
+  --chip-blue-ink: #0a4a96;
+  --chip-pink-bg: #fdeaf0;
+  --chip-pink-ink: #9c1c53;
+  --chip-green-bg: #e5f5ea;
+  --chip-green-ink: #1c7a41;
+  --chip-purple-bg: #f0e9fb;
+  --chip-purple-ink: #5a319c;
+  --shadow: 0 18px 40px -20px rgba(8, 30, 64, 0.35);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --bg: #0a1420;
+    --surface: #111f30;
+    --surface-alt: #16263a;
+    --ink: #e8eef5;
+    --ink-muted: #9bb0c4;
+    --ink-faint: #63788c;
+    --primary: #4f93e8;
+    --primary-dark: #2a5ea3;
+    --primary-light: #7fb1f2;
+    --accent: #ff9a3d;
+    --accent-ink: #241100;
+    --accent-dark: #ffb066;
+    --success: #4bc17e;
+    --success-bg: #123423;
+    --danger: #e5766c;
+    --danger-bg: #3a1613;
+    --border: #233752;
+    --border-soft: #1b2c42;
+    --chip-blue-bg: #16304f;
+    --chip-blue-ink: #8fbdf2;
+    --chip-pink-bg: #3a1c2a;
+    --chip-pink-ink: #ef9ec0;
+    --chip-green-bg: #143a26;
+    --chip-green-ink: #7fd6a0;
+    --chip-purple-bg: #271a3f;
+    --chip-purple-ink: #c3a6f0;
+    --shadow: 0 18px 44px -18px rgba(0, 0, 0, 0.6);
   }
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+button {
+  font-family: inherit;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+input {
+  font-family: inherit;
 }

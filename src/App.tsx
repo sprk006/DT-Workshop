@@ -1,33 +1,43 @@
-import { useEffect, useState } from 'react'
-import { supabase } from './lib/supabase'
+import { useAuth } from './hooks/useAuth'
+import { LoginPage } from './pages/LoginPage'
+import { OtpPage } from './pages/OtpPage'
+import { RestrictedPage } from './pages/RestrictedPage'
+import { AppShell } from './AppShell'
 import './App.css'
 
-type Status = 'checking' | 'connected' | 'error'
-
 function App() {
-  const [status, setStatus] = useState<Status>('checking')
-  const [message, setMessage] = useState('')
+  const { stage, pendingPhone, profile, error, busy, sendOtp, verifyOtp, signOut, devMode } = useAuth()
 
-  useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(() => setStatus('connected'))
-      .catch((err: Error) => {
-        setStatus('error')
-        setMessage(err.message)
-      })
-  }, [])
+  if (stage === 'loading') {
+    return <div className="screen splash">Loading…</div>
+  }
 
-  return (
-    <section id="center">
-      <h1>DT Workshop</h1>
-      <p>Supabase-connected app shell</p>
-      <p>
-        Status: <strong>{status}</strong>
-      </p>
-      {status === 'error' && <p>{message}</p>}
-    </section>
-  )
+  if (stage === 'signed_out') {
+    return <LoginPage onSubmit={sendOtp} busy={busy} error={error} devMode={devMode} />
+  }
+
+  if (stage === 'otp_sent') {
+    return (
+      <OtpPage
+        phone={pendingPhone}
+        onVerify={verifyOtp}
+        onBack={signOut}
+        busy={busy}
+        error={error}
+        devMode={devMode}
+      />
+    )
+  }
+
+  if (stage === 'restricted') {
+    return <RestrictedPage onSignOut={signOut} />
+  }
+
+  if (profile) {
+    return <AppShell profile={profile} onSignOut={signOut} />
+  }
+
+  return <div className="screen splash">Loading…</div>
 }
 
 export default App
