@@ -28,37 +28,7 @@
   --shadow: 0 18px 40px -20px rgba(8, 30, 64, 0.35);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0a1420;
-    --surface: #111f30;
-    --surface-alt: #16263a;
-    --ink: #e8eef5;
-    --ink-muted: #9bb0c4;
-    --ink-faint: #63788c;
-    --primary: #4f93e8;
-    --primary-dark: #2a5ea3;
-    --primary-light: #7fb1f2;
-    --accent: #ff9a3d;
-    --accent-ink: #241100;
-    --accent-dark: #ffb066;
-    --success: #4bc17e;
-    --success-bg: #123423;
-    --danger: #e5766c;
-    --danger-bg: #3a1613;
-    --border: #233752;
-    --border-soft: #1b2c42;
-    --chip-blue-bg: #16304f;
-    --chip-blue-ink: #8fbdf2;
-    --chip-pink-bg: #3a1c2a;
-    --chip-pink-ink: #ef9ec0;
-    --chip-green-bg: #143a26;
-    --chip-green-ink: #7fd6a0;
-    --chip-purple-bg: #271a3f;
-    --chip-purple-ink: #c3a6f0;
-    --shadow: 0 18px 44px -18px rgba(0, 0, 0, 0.6);
-  }
-}
+/* Light mode only — AAM Connect does not follow system dark-mode preference. */
 
 * { box-sizing: border-box; }
 

@@ -4,6 +4,7 @@ import { BottomNav, type Tab } from './components/BottomNav'
 import { DashboardPage } from './pages/DashboardPage'
 import { AgendaPage } from './pages/AgendaPage'
 import { MeetingDetailPage } from './pages/MeetingDetailPage'
+import { RecordingPage } from './pages/RecordingPage'
 import { AttendancePage } from './pages/AttendancePage'
 import { TasksPage } from './pages/TasksPage'
 import { IncentivesPage } from './pages/IncentivesPage'
@@ -18,6 +19,7 @@ interface AppShellProps {
 
 type Screen =
   | { name: 'meeting'; meetingId: string }
+  | { name: 'recording'; meetingId: string }
   | { name: 'attendance'; meetingId: string }
   | { name: 'incentives' }
   | { name: 'privacy' }
@@ -75,7 +77,22 @@ export function AppShell({ profile, onSignOut }: AppShellProps) {
           <MeetingDetailPage
             meetingId={top.meetingId}
             onBack={pop}
-            onStart={(id) => setStack((s) => [...s.slice(0, -1), { name: 'attendance', meetingId: id }])}
+            onStart={(id, record) =>
+              setStack((s) => [
+                ...s.slice(0, -1),
+                record ? { name: 'recording', meetingId: id } : { name: 'attendance', meetingId: id },
+              ])
+            }
+          />
+        )
+      case 'recording':
+        return (
+          <RecordingPage
+            meetingId={top.meetingId}
+            onBack={pop}
+            onFinish={(id) =>
+              setStack((s) => [...s.slice(0, -1), { name: 'attendance', meetingId: id }])
+            }
           />
         )
       case 'attendance':

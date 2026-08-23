@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { AppHeader } from '../components/AppHeader'
 import { Button } from '../components/Button'
+import { PrivacyNote } from '../components/PrivacyNote'
 import { MEETINGS } from '../data/mock'
 import type { AgendaItem } from '../types'
 
 interface MeetingDetailPageProps {
   meetingId: string
   onBack: () => void
-  onStart: (meetingId: string) => void
+  onStart: (meetingId: string, record: boolean) => void
 }
 
 export function MeetingDetailPage({ meetingId, onBack, onStart }: MeetingDetailPageProps) {
   const meeting = MEETINGS.find((m) => m.id === meetingId)
   const [agenda, setAgenda] = useState<AgendaItem[]>(meeting?.agenda ?? [])
+  const [recordMeeting, setRecordMeeting] = useState(false)
 
   if (!meeting) {
     return (
@@ -67,7 +69,40 @@ export function MeetingDetailPage({ meetingId, onBack, onStart }: MeetingDetailP
           ))}
         </div>
 
-        <Button onClick={() => onStart(meeting.id)}>Start meeting &amp; mark attendance</Button>
+        <div className="card toggle-card">
+          <button
+            className="toggle-row"
+            role="switch"
+            aria-checked={recordMeeting}
+            onClick={() => setRecordMeeting((v) => !v)}
+          >
+            <span className="toggle-row-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="4.2" fill="currentColor" />
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+            </span>
+            <div className="toggle-row-text">
+              <span className="list-row-title">Record &amp; transcribe this meeting</span>
+              <span className="muted">Optional · get a written summary afterwards</span>
+            </div>
+            <span className={`switch ${recordMeeting ? 'on' : ''}`} aria-hidden="true">
+              <span className="switch-knob" />
+            </span>
+          </button>
+
+          {recordMeeting && (
+            <PrivacyNote tone="inline" title="Only your voice, only for this meeting.">
+              Nothing is sent anywhere else, and you can stop or discard the recording at any
+              point. It's here to save someone from having to write minutes by hand — not to
+              monitor what's said.
+            </PrivacyNote>
+          )}
+        </div>
+
+        <Button onClick={() => onStart(meeting.id, recordMeeting)}>
+          {recordMeeting ? 'Start meeting & record' : 'Start meeting & mark attendance'}
+        </Button>
       </div>
     </div>
   )
